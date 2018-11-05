@@ -33,9 +33,9 @@ public class MainClass {
 					String emailId = sc.next();
 					sc.nextLine();
 					System.out.println("Enter Department of Associate");
-					String department = sc.nextLine();
+					String department = sc.next();
 					System.out.println("Enter Designation of Associate");
-					String designation = sc.nextLine();
+					String designation = sc.next();
 					System.out.println("Enter Pancard Number of Associate");
 					String pancard = sc.next();
 					System.out.println("Enter Yearly Investment of Associate");

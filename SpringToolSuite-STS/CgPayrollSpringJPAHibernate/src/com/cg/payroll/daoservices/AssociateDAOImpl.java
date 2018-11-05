@@ -6,12 +6,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.cg.payroll.beans.Associate;
 /*import com.cg.payroll.util.EntityManagerFactoryProvider;*/
 
+@Component(value="associateDAO")
 public class AssociateDAOImpl implements AssociateDAO{
 	/*private EntityManagerFactory factory= EntityManagerFactoryProvider.getEntityManagerFactory();*/
-	private EntityManagerFactory factory=null;
+	@Autowired
+	private EntityManagerFactory factory;
+	
 	@Override
 	public Associate save(Associate associate) {
 		EntityManager entityManager= factory.createEntityManager();

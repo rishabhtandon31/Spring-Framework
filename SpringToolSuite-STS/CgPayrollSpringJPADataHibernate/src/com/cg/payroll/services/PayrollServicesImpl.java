@@ -8,7 +8,6 @@ import com.cg.payroll.beans.Associate;
 import com.cg.payroll.beans.BankDetails;
 import com.cg.payroll.beans.Salary;
 import com.cg.payroll.daoservices.AssociateDAO;
-import com.cg.payroll.daoservices.AssociateDAOImpl;
 import com.cg.payroll.exceptions.AssociateDetailNotFoundException;
 import com.cg.payroll.exceptions.PayrollServicesDownException;
 @Component(value="payrollServices")
@@ -53,7 +52,7 @@ public class PayrollServicesImpl implements PayrollServices{
 			double monthlyTax = annualTax / 12;
 			associate.getSalary().setMonthlyTax(monthlyTax);
 			associate.getSalary().setNetSalary(associate.getSalary().getGrossSalary() - monthlyTax);
-			associateDAO.update(associate);
+			associateDAO.save(associate);
 			return associate.getSalary().getNetSalary();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -66,7 +65,7 @@ public class PayrollServicesImpl implements PayrollServices{
 			throws AssociateDetailNotFoundException,
 			PayrollServicesDownException {
 		try {
-			Associate associate = associateDAO.findOne(associateId);
+			Associate associate = associateDAO.findById(associateId).get();
 			if (associate == null) throw new AssociateDetailNotFoundException("Associate Details Not Found.");
 			return associate;
 		} catch (Exception e) {
@@ -79,7 +78,7 @@ public class PayrollServicesImpl implements PayrollServices{
 	public ArrayList<Associate> getAllAssociatesDetails()
 			throws PayrollServicesDownException {
 		try {
-			return associateDAO.findAll();
+			return (ArrayList<Associate>) associateDAO.findAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new PayrollServicesDownException("Server is Down. Please try again later", e);
